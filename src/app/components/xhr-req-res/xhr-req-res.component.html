@@ -1,0 +1,13 @@
+<div class="container py-3">
+    <div class="row">
+        <button type="button" class="btn btn-primary w-25 p-3" (click)="fetchRequestHeaders()">Retrieve Request/Response Headers</button>
+        <div class="card mt-4">
+            <div class="card-body">
+                <p>Request Headers</p>
+                <pre><p>{{requestHeaders | json}}</p></pre>
+                <p>Reponse Headers</p>
+                <pre><p>{{responseHeaders | json}}</p></pre>
+            </div>
+        </div>
+    </div>
+</div>
