@@ -20,6 +20,9 @@ export class XhrReqResComponent implements OnInit {
   }
 
   fetchRequestHeaders(): void {
+    this.requestHeaders = {};
+    this.responseHeaders = {};
+
     this.apiService.getRequestHeaders().subscribe((response) => {
       this.requestHeaders = response;
     });
