@@ -14,23 +14,16 @@ export class ApiService {
     private httpClient: HttpClient
   ) { }
 
-  getRequestHeaders(): Observable<{}> {
-    return this.httpClient.get<{}>(`${this.baseUrl}/getRequestHeaders`)
+  getRequestHeaders(): Observable<any> {
+    return this.httpClient.get<any>(`${this.baseUrl}/getRequestHeaders`, {observe: 'response'})
       .pipe(
         delay(this.apiDealyInMS),
         tap((response) => {
-          console.log("In getRequestHeader => ", response);
+          console.log("response => ", response);
         }),
-      );
-  }
-
-  getResponseHeaders(): Observable<{}> {
-    return this.httpClient.get<{}>(`${this.baseUrl}/getResponseHeaders`)
-      .pipe(
-        delay(this.apiDealyInMS),
-        tap((response) => {
-          console.log("In getResponseHeader => ", response);
-        }),
+        map(response => {
+          return {'reqH': response.body, 'resH': response.headers}
+        })
       );
   }
 }

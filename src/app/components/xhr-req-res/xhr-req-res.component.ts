@@ -9,7 +9,7 @@ import { ApiService } from '../../services/api.service';
 export class XhrReqResComponent implements OnInit {
 
   requestHeaders = {};
-  responseHeaders = {};
+  responseHeaders : any = {};
 
   constructor(
     private apiService: ApiService
@@ -24,11 +24,15 @@ export class XhrReqResComponent implements OnInit {
     this.responseHeaders = {};
 
     this.apiService.getRequestHeaders().subscribe((response) => {
-      this.requestHeaders = response;
-    });
+      this.requestHeaders = response.reqH;
 
-    this.apiService.getResponseHeaders().subscribe((response) => {
-      this.responseHeaders = response;
+      //Iterate through headers
+      var resHeaders: any = {};
+      response.resH.keys().forEach((key: string) => {
+        resHeaders[key] = response.resH.get(key);
+      });
+
+      this.responseHeaders = resHeaders;
     });
   }
 }
